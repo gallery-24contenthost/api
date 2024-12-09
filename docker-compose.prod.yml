@@ -7,14 +7,14 @@ services:
       - ./_docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
       - "8878:80"
-    container_name: photo_content_dev_nginx
+    container_name: photo_content_prod_nginx
     depends_on:
       - app
     networks:
-      - photo_content_dev_network
+      - photo_content_prod_network
 
   app:
-    image: alonecat/photo_content_api_dev:latest  # Заменили build на image
+    image: alonecat/photo_content_prod:latest  # Заменили build на image
     environment:
       - APP_KEY=$APP_KEY
       - APP_NAME=$APP_NAME
@@ -31,11 +31,11 @@ services:
       - LAST_COMMIT=$LAST_COMMIT
     volumes:
       - app_data:/var/www
-    container_name: photo_content_dev_app
+    container_name: photo_content_prod_app
     depends_on:
       - db
     networks:
-      - photo_content_dev_network
+      - photo_content_prod_network
 
   db:
     image: mysql:8.0
@@ -49,12 +49,12 @@ services:
       - "3386:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    container_name: photo_content_dev_db
+    container_name: photo_content_prod_db
     networks:
-      - photo_content_dev_network
+      - photo_content_prod_network
 
 networks:
-  photo_content_dev_network:
+  photo_content_prod_network:
     driver: bridge
 
 volumes:

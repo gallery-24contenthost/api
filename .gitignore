@@ -6,9 +6,9 @@
 /storage/*.key
 /storage/pail
 /vendor
-.env.stage
+.env.prod
 .env.backup
-.env.stage
+.env.prod
 .env.production
 .phpactor.json
 .phpunit.result.cache
