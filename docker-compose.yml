@@ -2,15 +2,15 @@ services:
     nginx:
         image: nginx:latest
         volumes:
-            - ./app:/var/www
+            - .:/var/www
             - ./_docker/nginx/conf.d:/etc/nginx/conf.d
         ports:
-            - "8878:80"
-        container_name: photo_content_dev_nginx
+            - "8879:80"
+        container_name: photo_content_local_nginx
         depends_on:
             - app
         networks:
-            - photo_content_dev_network
+            - photo_content_local_network
     app:
         build:
             context: .
@@ -30,7 +30,7 @@ services:
             - CURRENT_BRANCH=$CURRENT_BRANCH
             - LAST_COMMIT=$LAST_COMMIT
         volumes:
-            - ./app:/var/www
+            - .:/var/www
         container_name: photo_content_local_app
         depends_on:
             - db
@@ -46,9 +46,9 @@ services:
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
-            - "3386:3306"
+            - "3306:3306"
         volumes:
-            - mysql_data:/var/lib/mysql
+            - mysql_local_data:/var/lib/mysql
         container_name: photo_content_local_db
         networks:
             - photo_content_local_network
@@ -58,4 +58,4 @@ networks:
         driver: bridge
 
 volumes:
-    mysql_data:
+    mysql_local_data:

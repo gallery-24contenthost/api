@@ -19,6 +19,8 @@ COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 # Установка рабочей директории
 WORKDIR /var/www
 
+RUN echo "Before copying:" && ls -l .
+
 # Копирование файлов проекта
 COPY app            /var/www/app
 COPY bootstrap      /var/www/bootstrap
@@ -29,7 +31,9 @@ COPY resources      /var/www/resources
 COPY routes         /var/www/routes
 COPY storage        /var/www/storage
 COPY artisan        /var/www/artisan
-COPY package.json   /var/www/package.json
+#COPY package.json   /var/www/package.json
+
+RUN echo "After copying:" && ls -l /var/www
 
 RUN echo "alias a='artisan'" >> /root/.bashrc
 
