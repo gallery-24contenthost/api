@@ -14,7 +14,7 @@ services:
       - photo_content_prod_network
 
   app:
-    image: alonecat/photo_content_prod:latest  # Заменили build на image
+    image: alonecat/photo_content_prod:latest
     environment:
       - APP_KEY=$APP_KEY
       - APP_NAME=$APP_NAME
