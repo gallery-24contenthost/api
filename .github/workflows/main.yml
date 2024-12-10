@@ -35,7 +35,7 @@ jobs:
         docker build -f _docker/app/Dockerfile -t alonecat/photo_content_api_prod:latest .
         docker push alonecat/photo_content_api_prod:latest
   deploy:
-    runs-on: [ self-hosted, macOs, X64 ]  # Используем self-hosted runner для деплоя
+    runs-on: [ self-hosted, macOS, X64 ]  # Используем self-hosted runner для деплоя
 
     needs: build  # Деплой зависит от успешного завершения сборки
 
