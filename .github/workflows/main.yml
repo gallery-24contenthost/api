@@ -51,4 +51,4 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          docker-compose up -d  # Запуск контейнеров с актуальной конфигурацией
+          docker-compose -f docker-compose.prod.yml up -d
