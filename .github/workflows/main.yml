@@ -34,3 +34,24 @@ jobs:
       run: |
         docker build -f _docker/app/Dockerfile -t alonecat/photo_content_api_prod:latest .
         docker push alonecat/photo_content_api_prod:latest
+  deploy:
+    runs-on: [self-hosted, macOs, X64]  # Используем self-hosted runner для деплоя
+
+    needs: build  # Деплой зависит от успешного завершения build
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}  # Условие: деплой только после успешной сборки или вручную
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Remove old containers
+        run: |
+          export CONTAINER_PREFIX=photo_content
+          docker stop $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
+          docker rm $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
+          sleep 5
+
+      - name: Deploy to VPS
+        run: |
+          docker-compose up -d  # Запуск контейнеров с актуальной конфигурацией
