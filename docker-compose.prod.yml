@@ -3,7 +3,7 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - app_data:/var/www
+      - photo_content_prod_app_data:/var/www
       - ./_docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
       - "8878:80"
@@ -31,7 +31,7 @@ services:
       - CURRENT_BRANCH=${CURRENT_BRANCH}
       - LAST_COMMIT=${LAST_COMMIT}
     volumes:
-      - app_data:/var/www
+      - photo_content_prod_app_data:/var/www
     depends_on:
       - db
     networks:
@@ -48,7 +48,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_prod_data:/var/lib/mysql
+      - photo_content_prod_data:/var/lib/mysql
     container_name: photo_content_prod_db
     networks:
       - photo_content_prod_network
@@ -58,5 +58,5 @@ networks:
     driver: bridge
 
 volumes:
-  app_data:
-  mysql_prod_data:
+  photo_content_prod_app_data:
+  photo_content_prod_mysql_prod_data:
