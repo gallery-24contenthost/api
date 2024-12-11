@@ -48,7 +48,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_prod_data:/var/lib/mysql
     container_name: photo_content_prod_db
     networks:
       - photo_content_prod_network
@@ -59,4 +59,4 @@ networks:
 
 volumes:
   app_data:
-  mysql_data:
+  mysql_prod_data:
