@@ -41,18 +41,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Set up environment variables and deploy
-        run: |
-          export CONTAINER_PREFIX=photo_content
-           # Остановка и удаление старых контейнеров, если они существуют
-          docker stop $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
-          docker rm $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
-          sleep 5
-
-          # Очистка volumes (удаляем старые тома)
-          docker volume rm $(docker volume ls -q --filter "name=${CONTAINER_PREFIX}_") || true
-          sleep 2
-      - name: Deploy to VPS
+      - name: Deploy to vps
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
           APP_NAME: ${{ secrets.APP_NAME }}
@@ -81,9 +70,9 @@ jobs:
           echo "APP_DEBUG=${APP_DEBUG}"
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "GITHUB_SHA=${GITHUB_SHA}"
-          sleep 5
+          - export CONTAINER_PREFIX=stock_prod
           docker-compose -f docker-compose.prod.yml up -d
-          sleep 50
+          sleep 20
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan migrate --force
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan cache:clear
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan config:clear
