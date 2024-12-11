@@ -46,7 +46,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3386:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     container_name: photo_content_prod_db
