@@ -78,11 +78,11 @@ jobs:
           echo "GITHUB_SHA=${GITHUB_SHA}"
           sleep 5
           docker-compose -f docker-compose.prod.yml up -d
-          sleep 5
-          docker exec photo_content_api_prod php artisan migrate --force
-          docker exec photo_content_api_prod php artisan cache:clear
-          docker exec photo_content_api_prod php artisan config:clear
-          docker exec photo_content_api_prod php artisan route:clear
+          #sleep 5
+          #docker exec photo_content_api_prod php artisan migrate --force
+          #docker exec photo_content_api_prod php artisan cache:clear
+          #docker exec photo_content_api_prod php artisan config:clear
+          #docker exec photo_content_api_prod php artisan route:clear
 
 
 
