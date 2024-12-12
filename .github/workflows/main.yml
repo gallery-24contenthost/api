@@ -82,11 +82,12 @@ jobs:
           sleep 5
 
           docker-compose -f docker-compose.prod.yml up -d
-          sleep 20
-          docker exec ${CONTAINER_PREFIX}_api_prod php artisan migrate --force
+          sleep 40
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan cache:clear
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan config:clear
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan route:clear
+          docker exec ${CONTAINER_PREFIX}_api_prod php artisan migrate --force
+
 
 
 
