@@ -75,14 +75,12 @@ jobs:
           # Остановка и удаление старых контейнеров, если они существуют
           docker stop $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
           docker rm $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
-          sleep 5
 
           # Очистка volumes (удаляем старые тома)
           docker volume ls -q --filter "name=${CONTAINER_PREFIX}_" | xargs -r docker volume rm || true
-          sleep 5
 
           docker-compose -f docker-compose.prod.yml up -d
-          sleep 40
+          #sleep 40
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan migrate --force
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan cache:clear
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan config:clear
