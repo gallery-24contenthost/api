@@ -86,6 +86,7 @@ jobs:
           sleep 5
           done
           echo "MySQL is ready!"
+          sleep 20
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan migrate --force
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan cache:clear
           docker exec ${CONTAINER_PREFIX}_api_prod php artisan config:clear
