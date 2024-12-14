@@ -32,8 +32,8 @@ jobs:
 
     - name: Build and push Docker image for prod
       run: |
-        docker build -f _docker/app/Dockerfile -t alonecat/photo_content_api_prod:latest .
-        docker push alonecat/photo_content_api_prod:latest
+        docker build -f _docker/app/Dockerfile -t alonecat/photo_content_api:latest .
+        docker push alonecat/photo_content_api:latest
   deploy:
     runs-on: vps
     needs: build
