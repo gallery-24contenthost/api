@@ -70,23 +70,24 @@ jobs:
           echo "APP_DEBUG=${APP_DEBUG}"
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "GITHUB_SHA=${GITHUB_SHA}"
-          export CONTAINER_PREFIX=photo_content
+          export COMPOSE_NAME=photo_content_api
 
-          # Остановка и удаление старых контейнеров, если они существуют
-          docker stop $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
-          docker rm $(docker ps -a | grep ${CONTAINER_PREFIX}_ | awk '{print $1}') || true
-
-          # Очистка volumes (удаляем старые тома)
-          docker volume ls -q --filter "name=${CONTAINER_PREFIX}_" | xargs -r docker volume rm || true
-
+          docker-compose -p photo_content_api -f docker-compose.prod.yml down --volumes --remove-orphans
+          sleep 2
           docker-compose -f docker-compose.prod.yml up -d
 
-          sleep 50
-          docker-compose -p photo_content_api exec app php artisan migrate --force
-
-      #docker exec photo_content_api_app php artisan cache:clear
-          #docker exec ${CONTAINER_PREFIX}_api_prod php artisan config:clear
-          #docker exec ${CONTAINER_PREFIX}_api_prod php artisan route:clear
+          sleep 2
+          echo "Waiting for MySQL to be ready..."
+           until  docker-compose -p ${COMPOSE_NAME} exec db mysqladmin ping -h localhost -u root -p${DB_PASSWORD} --silent; do
+           echo "Waiting for MySQL..."
+           sleep 5
+           done
+           echo "MySQL is ready!"
+          sleep 2
+          docker-compose -p ${COMPOSE_NAME} exec app php artisan migrate --force
+          docker-compose -p ${COMPOSE_NAME} exec app php artisan cache:clear
+          docker-compose -p ${COMPOSE_NAME} exec app php artisan config:clear
+          docker-compose -p ${COMPOSE_NAME} exec app php artisan route:clear
 
 
 
