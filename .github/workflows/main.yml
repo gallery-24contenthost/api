@@ -80,7 +80,7 @@ jobs:
           until  docker-compose exec db mysqladmin ping -h localhost -u root -p${DB_PASSWORD} --silent; do
             echo "Waiting for MySQL..."
             sleep 2
-            done
+          done
           echo "MySQL is ready!"
           sleep 2
           docker-compose exec app php artisan migrate --force
