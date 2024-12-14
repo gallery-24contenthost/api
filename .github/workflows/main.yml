@@ -80,12 +80,7 @@ jobs:
           docker volume ls -q --filter "name=${CONTAINER_PREFIX}_" | xargs -r docker volume rm || true
 
           docker-compose -f docker-compose.prod.yml up -d
-         # echo "Waiting for MySQL to be ready..."
-         # until docker exec photo_content_api_db mysqladmin ping -h localhost -u root -p${DB_PASSWORD} --silent; do
-          #echo "Waiting for MySQL..."
-         #sleep 5
-         # done
-         # echo "MySQL is ready!"
+
           sleep 50
           docker exec photo_content_api_app php artisan migrate --force
           #docker exec photo_content_api_app php artisan cache:clear
