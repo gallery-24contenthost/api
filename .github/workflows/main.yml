@@ -85,7 +85,7 @@ jobs:
           done
 
           echo "MySQL is ready!"
-          sleep 2
+          sleep 10
 
           docker-compose exec app php artisan migrate --force
           docker-compose exec app php artisan cache:clear
