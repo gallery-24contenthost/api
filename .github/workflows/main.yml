@@ -82,8 +82,9 @@ jobs:
           docker-compose -f docker-compose.prod.yml up -d
 
           sleep 50
-          docker-compose exec photo_content_api_app php artisan migrate --force
-          #docker exec photo_content_api_app php artisan cache:clear
+          docker-compose -p photo_content_api exec app php artisan migrate --force
+
+      #docker exec photo_content_api_app php artisan cache:clear
           #docker exec ${CONTAINER_PREFIX}_api_prod php artisan config:clear
           #docker exec ${CONTAINER_PREFIX}_api_prod php artisan route:clear
 
