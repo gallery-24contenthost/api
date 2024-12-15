@@ -66,6 +66,9 @@ jobs:
           echo "GITHUB_SHA=${GITHUB_SHA}"
           echo "COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}"
 
+          echo "Pulling latest Docker image..."
+          docker pull alonecat/photo_content_api:latest
+
           docker-compose -f docker-compose.prod.yml down --volumes --remove-orphans
           sleep 1
           docker-compose -f docker-compose.prod.yml up -d
