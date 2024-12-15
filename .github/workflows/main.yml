@@ -36,7 +36,7 @@ jobs:
           docker push alonecat/photo_content_api:latest
 
   deploy:
-    runs-on: self-hosted
+    runs-on: ["self-hosted", "vps-api"]
     needs: build
 
     steps:
