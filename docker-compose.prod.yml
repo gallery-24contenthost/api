@@ -29,7 +29,7 @@ services:
       - app_data:/var/www
       - ./_docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - app
     networks:
