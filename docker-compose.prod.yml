@@ -29,7 +29,7 @@ services:
       - app_data:/var/www
       - ./_docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - "80:80"
+      - "8080:8080"
     depends_on:
       - app
     networks:
@@ -40,7 +40,7 @@ services:
       - "traefik.http.routers.photo_content_api.entrypoints=websecure"
       - "traefik.http.routers.photo_content_api.tls=true"
       - "traefik.http.routers.photo_content_api.tls.certresolver=leresolver"
-      - "traefik.http.services.photo_content_api.loadbalancer.server.port=80"
+      - "traefik.http.services.photo_content_api.loadbalancer.server.port=8080"
   app:
     image: alonecat/photo_content_api:latest  #
     environment:
