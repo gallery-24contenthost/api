@@ -5,7 +5,7 @@ services:
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.address=:8080"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.leresolver.acme.httpchallenge=true"
       - "--certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web"
