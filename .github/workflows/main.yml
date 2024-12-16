@@ -47,6 +47,9 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           APP_DEBUG: ${{ secrets.APP_DEBUG }}
+          SANCTUM_STATEFUL_DOMAINS: ${{ secrets.SANCTUM_STATEFUL_DOMAINS }}
+          SESSION_DOMAIN: ${{ secrets.SESSION_DOMAIN }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           GITHUB_REF: ${{ github.ref }}
           GITHUB_SHA: ${{ github.sha }}
           COMPOSE_PROJECT_NAME: photo_content_api
@@ -62,6 +65,9 @@ jobs:
           echo "DB_USERNAME=${DB_USERNAME}"
           echo "DB_PASSWORD=${DB_PASSWORD}"
           echo "APP_DEBUG=${APP_DEBUG}"
+          echo "SANCTUM_STATEFUL_DOMAINS=${SANCTUM_STATEFUL_DOMAINS}"
+          echo "SESSION_DOMAIN=${SESSION_DOMAIN}"
+          echo "FRONTEND_URL=${FRONTEND_URL}"
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "GITHUB_SHA=${GITHUB_SHA}"
           echo "COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}"
