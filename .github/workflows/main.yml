@@ -69,7 +69,7 @@ jobs:
           echo "SANCTUM_STATEFUL_DOMAINS=${SANCTUM_STATEFUL_DOMAINS}"
           echo "SESSION_DOMAIN=${SESSION_DOMAIN}"
           echo "FRONTEND_URL=${FRONTEND_URL}"
-          echo "TRAEFIK_EMAIL=${secrets.TRAEFIK_EMAIL}"
+          echo "TRAEFIK_EMAIL=${TRAEFIK_EMAIL}"
           echo "GITHUB_REF=${GITHUB_REF}"
           echo "GITHUB_SHA=${GITHUB_SHA}"
           echo "COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}"
