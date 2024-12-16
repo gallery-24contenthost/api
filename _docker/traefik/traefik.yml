@@ -6,6 +6,8 @@ entryPoints:
 
 api:
   insecure: true
+  entryPoint: "http"
+  port: 8081  # Можно явно указать порт
 
 providers:
   docker:
