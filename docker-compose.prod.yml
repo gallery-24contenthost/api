@@ -6,11 +6,11 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.leresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.leresolver.acme.email=${TRAEFIK_EMAIL}"
-      - "--certificatesresolvers.leresolver.acme.storage=acme.json"
+      #- "--entrypoints.websecure.address=:443"
+      #- "--certificatesresolvers.leresolver.acme.httpchallenge=true"
+      #- "--certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web"
+      #- "--certificatesresolvers.leresolver.acme.email=${TRAEFIK_EMAIL}"
+      #- "--certificatesresolvers.leresolver.acme.storage=acme.json"
     ports:
       - "80:80"
       - "443:443"
@@ -38,8 +38,12 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.photo_content_api.rule=Host(`api.music.24contenthost.ru`)"
     - "traefik.http.services.photo_content_api.loadbalancer.server.port=8080"
-    - "traefik.http.routers.photo_content_api.entrypoints=websecure"  # Использование HTTPS
-    - "traefik.http.routers.photo_content_api.tls=true"  # Включение TLS для HTTPS
+
+    # HTTP (порт 80)
+    - "traefik.http.routers.photo_content_api.entrypoints=web"  # Только HTTP (порт 80)
+
+    # Убираем TLS настройки, так как они не нужны для HTTP
+    # - "traefik.http.routers.photo_content_api.tls=true"  # Эта строка не нужна для HTTP
 
   app:
     image: alonecat/photo_content_api:latest  #
