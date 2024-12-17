@@ -36,7 +36,8 @@ services:
       - api_network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nginx.rule=HostRegexp(`{host:.+}`)"  # Сервируем все запросы на IP
+      #- "traefik.http.routers.nginx.rule=HostRegexp(`{host:.+}`)"  # Сервируем все запросы на IP
+      - "traefik.http.routers.nginx.rule=Host(`api.music.24contenthost.ru`)"  # Сервируем только поддомен
       - "traefik.http.services.nginx.loadbalancer.server.port=8080"
       - "traefik.http.routers.nginx.entrypoints=web"
 
