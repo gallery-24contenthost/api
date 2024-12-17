@@ -35,15 +35,11 @@ services:
     networks:
       - api_network
     labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.photo_content_api.rule=Host(`api.music.24contenthost.ru`)"
-    - "traefik.http.services.photo_content_api.loadbalancer.server.port=8080"
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx.rule=HostRegexp(`{host:.+}`)"  # Сервируем все запросы на IP
+      - "traefik.http.services.nginx.loadbalancer.server.port=8080"
+      - "traefik.http.routers.nginx.entrypoints=web"
 
-    # HTTP (порт 80)
-    - "traefik.http.routers.photo_content_api.entrypoints=web"  # Только HTTP (порт 80)
-
-    # Убираем TLS настройки, так как они не нужны для HTTP
-    # - "traefik.http.routers.photo_content_api.tls=true"  # Эта строка не нужна для HTTP
 
   app:
     image: alonecat/photo_content_api:latest  #
