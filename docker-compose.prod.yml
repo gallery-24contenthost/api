@@ -6,6 +6,7 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
+      - "--log.level=DEBUG"
       #- "--entrypoints.websecure.address=:443"
       #- "--certificatesresolvers.leresolver.acme.httpchallenge=true"
       #- "--certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web"
