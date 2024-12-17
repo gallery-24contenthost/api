@@ -20,4 +20,4 @@ certificatesResolvers:
       email: "${TRAEFIK_EMAIL}"
       storage: acme.json
       httpChallenge:
-        entryPoint: web  # Для HTTP-челленджа через entry point web
+        entryPoint: web

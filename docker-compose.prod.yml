@@ -33,6 +33,7 @@ services:
     volumes:
       - app_data:/var/www
       - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot:/var/www/certbot
     ports:
       - "8080:8080"
     depends_on:
@@ -40,11 +41,6 @@ services:
     networks:
       - api_network
     labels:
-      #- "traefik.enable=true"
-      ##- "traefik.http.routers.nginx.rule=HostRegexp(`{host:.+}`)"  # Сервируем все запросы на IP
-      #- "traefik.http.routers.nginx.rule=Host(`api.music.24contenthost.ru`)"  # Сервируем только поддомен
-      #- "traefik.http.services.nginx.loadbalancer.server.port=80"
-      #- "traefik.http.routers.nginx.entrypoints=web"
       - "traefik.http.routers.nginx.rule=Host(`api.music.24contenthost.ru`)"
       - "traefik.http.services.nginx.loadbalancer.server.port=80"
       - "traefik.http.routers.nginx.entrypoints=websecure"
