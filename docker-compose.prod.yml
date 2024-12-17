@@ -27,6 +27,8 @@ services:
     restart: always
     environment:
       - TRAFFIK_EMAIL=${TRAEFIK_EMAIL}
+    depends_on:
+      - nginx
 
   nginx:
     image: nginx:latest
@@ -46,6 +48,12 @@ services:
       - "traefik.http.routers.nginx.entrypoints=websecure"
       - "traefik.http.routers.nginx.tls=true"
       - "traefik.http.routers.nginx.tls.certresolver=leresolver"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:80" ]
+      interval: 30s
+      retries: 3
+      timeout: 10s
+      start_period: 30s
 
 
   app:
