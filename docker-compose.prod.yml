@@ -3,15 +3,19 @@ services:
   traefik:
     image: traefik:v3.0
     command:
+      #- "--api.insecure=true"
+      #- "--providers.docker=true"
+      #- "--entrypoints.web.address=:80"
+      #- "--log.level=DEBUG"
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.leresolver.acme.email=${TRAEFIK_EMAIL}"
+      - "--certificatesresolvers.leresolver.acme.storage=/acme.json"
+      - "--certificatesresolvers.leresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web"
       - "--log.level=DEBUG"
-      #- "--entrypoints.websecure.address=:443"
-      #- "--certificatesresolvers.leresolver.acme.httpchallenge=true"
-      #- "--certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web"
-      #- "--certificatesresolvers.leresolver.acme.email=${TRAEFIK_EMAIL}"
-      #- "--certificatesresolvers.leresolver.acme.storage=acme.json"
     ports:
       - "80:80"
       - "443:443"
@@ -36,11 +40,16 @@ services:
     networks:
       - api_network
     labels:
-      - "traefik.enable=true"
-      #- "traefik.http.routers.nginx.rule=HostRegexp(`{host:.+}`)"  # Сервируем все запросы на IP
-      - "traefik.http.routers.nginx.rule=Host(`api.music.24contenthost.ru`)"  # Сервируем только поддомен
+      #- "traefik.enable=true"
+      ##- "traefik.http.routers.nginx.rule=HostRegexp(`{host:.+}`)"  # Сервируем все запросы на IP
+      #- "traefik.http.routers.nginx.rule=Host(`api.music.24contenthost.ru`)"  # Сервируем только поддомен
+      #- "traefik.http.services.nginx.loadbalancer.server.port=80"
+      #- "traefik.http.routers.nginx.entrypoints=web"
+      - "traefik.http.routers.nginx.rule=Host(`api.music.24contenthost.ru`)"
       - "traefik.http.services.nginx.loadbalancer.server.port=80"
-      - "traefik.http.routers.nginx.entrypoints=web"
+      - "traefik.http.routers.nginx.entrypoints=websecure"
+      - "traefik.http.routers.nginx.tls=true"
+      - "traefik.http.routers.nginx.tls.certresolver=leresolver"
 
 
   app:

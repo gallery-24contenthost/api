@@ -6,8 +6,8 @@ entryPoints:
 
 api:
   insecure: true
-  entryPoint: "http"
-  port: 8081  # Можно явно указать порт
+  entryPoint: "websecure"  # Используем HTTPS entryPoint
+  port: 8082
 
 providers:
   docker:
@@ -20,4 +20,4 @@ certificatesResolvers:
       email: "${TRAEFIK_EMAIL}"
       storage: acme.json
       httpChallenge:
-        entryPoint: web
+        entryPoint: web  # Для HTTP-челленджа через entry point web
