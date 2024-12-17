@@ -29,6 +29,12 @@ services:
       - TRAFFIK_EMAIL=${TRAEFIK_EMAIL}
     depends_on:
       - nginx
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+      start_period: 30s
 
   nginx:
     image: nginx:latest
