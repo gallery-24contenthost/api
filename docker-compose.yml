@@ -1,13 +1,12 @@
 name: api
 services:
-    app-nginx:
+    nginx-api:
         image: nginx:latest
         volumes:
             - app_data:/var/www
             - ./.deploy/nginx/conf.d:/etc/nginx/conf.d
         ports:
             - "8000:8000"
-        container_name: api_nginx
         depends_on:
             - app
         networks:
@@ -35,7 +34,6 @@ services:
             - app_data:/var/www
         #ports:
         #    - "9000:9000"
-        container_name: api_app
         depends_on:
             - db
         networks:
