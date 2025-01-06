@@ -1,25 +1,29 @@
+name: api
 services:
-    nginx:
+    app-nginx:
         image: nginx:latest
         volumes:
-            - .:/var/www
-            - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+            - app_data:/var/www
+            - ./.deploy/nginx/conf.d:/etc/nginx/conf.d
         ports:
-            - "8000:80"
-        container_name: photo_content_local_nginx
+            - "8000:8000"
+        container_name: api_nginx
         depends_on:
             - app
         networks:
-            - photo_content_local_network
+            - content_host_network
     app:
         build:
             context: .
-            dockerfile: ./_docker/app/local/Dockerfile
+            dockerfile: .deploy/Dockerfile
         environment:
             - APP_KEY=$APP_KEY
             - APP_NAME=$APP_NAME
             - APP_ENV=$APP_ENV
             - APP_URL=$APP_URL
+            - FRONTEND_URL=$FRONTEND_URL
+            - SESSION_DOMAIN=$SESSION_DOMAIN
+            - SANCTUM_STATEFUL_DOMAINS=$SANCTUM_STATEFUL_DOMAINS
             - DB_CONNECTION=$DB_CONNECTION
             - DB_HOST=$DB_HOST
             - DB_PORT=$DB_PORT
@@ -27,15 +31,15 @@ services:
             - DB_USERNAME=$DB_USERNAME
             - DB_PASSWORD=$DB_PASSWORD
             - APP_DEBUG=$APP_DEBUG
-            - CURRENT_BRANCH=$CURRENT_BRANCH
-            - LAST_COMMIT=$LAST_COMMIT
         volumes:
-            - .:/var/www
-        container_name: photo_content_local_app
+            - app_data:/var/www
+        #ports:
+        #    - "9000:9000"
+        container_name: api_app
         depends_on:
             - db
         networks:
-            - photo_content_local_network
+            - content_host_network
 
     db:
         image: mysql:8.0
@@ -48,14 +52,14 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - mysql_local_data:/var/lib/mysql
-        container_name: photo_content_local_db
+            - mysql_data:/var/lib/mysql
         networks:
-            - photo_content_local_network
+            - content_host_network
 
 networks:
-    photo_content_local_network:
-        driver: bridge
+    content_host_network:
+        external: true
 
 volumes:
-    mysql_local_data:
+    app_data:
+    mysql_data:
