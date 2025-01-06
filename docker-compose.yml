@@ -2,6 +2,7 @@ name: api
 services:
     nginx-api:
         image: nginx:latest
+        restart: unless-stopped
         volumes:
             - app_data:/var/www
             - ./.deploy/nginx/conf.d:/etc/nginx/conf.d
