@@ -19,7 +19,7 @@ services:
             - "traefik.http.routers.api.tls.certresolver=letsencrypt"
             - "traefik.http.services.api.loadbalancer.server.port=8000"
             - "traefik.http.routers.api.middlewares=api-strip-prefix"
-            - "traefik.http.middlewares.api-strip-prefix.stripprefix.prefixes=/api"
+            - "traefik.http.middlewares.api-strip-prefix.stripprefix.prefixes="
 
     app:
         build:
