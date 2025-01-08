@@ -14,7 +14,7 @@ services:
             - content_host_network
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.api.rule=Host(`gallery.24contenthost.ru`) && PathPrefix(`/api`)"
+            - "traefik.http.routers.api.rule=Host(`api.gallery.24contenthost.ru`)"
             - "traefik.http.routers.api.entrypoints=websecure"
             - "traefik.http.routers.api.tls.certresolver=letsencrypt"
             - "traefik.http.services.api.loadbalancer.server.port=8000"
