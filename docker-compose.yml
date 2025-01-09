@@ -24,7 +24,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: .deploy/Dockerfile
+            dockerfile: .docker/Dockerfile
         environment:
             - APP_KEY=$APP_KEY
             - APP_NAME=$APP_NAME
