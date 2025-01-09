@@ -7,7 +7,7 @@ phpunit.xml
 /tests
 
 # Исключаем файлы для оркестрации Docker
-docker-compose.yml
+../api-deploy/docker-compose.yml
 
 # Исключаем IDE файлы
 .idea/
