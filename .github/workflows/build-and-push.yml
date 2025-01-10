@@ -33,6 +33,7 @@ jobs:
       - name: Trigger deploy workflow in api-deploy repository
         run: |
           curl -X POST \
+          -H "Authorization: token ${{ secrets.PAT }}" \
           -d '{"event_type": "docker-push", "client_payload": {"ref": "refs/tags/latest", "tag": "latest"}}' \
           https://api.github.com/repos/gallery-24contenthost/api-deploy/dispatches
 
